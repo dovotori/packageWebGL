@@ -38,14 +38,14 @@ Mesh.prototype.draw = function(projection, view)
 		this.model.rotate(this.rotation.y, 0,1,0);
 		this.model.rotate(this.rotation.z, 0,0,1);
 		var normalmatrix = new mat3();
-		normalmatrix.set(model.getMatrice3x3());
+		normalmatrix.set(this.model.getMatrice3x3());
 		normalmatrix.inverser();
 
 		gl.useProgram(this.program.get());
 
 		// matrice
 		gl.uniformMatrix4fv(this.program.get().pMatLoc, false, projection.transpose());
-		gl.uniformMatrix4fv(this.program.get().mMatLoc, false, model.transpose());
+		gl.uniformMatrix4fv(this.program.get().mMatLoc, false, this.model.transpose());
 		gl.uniformMatrix4fv(this.program.get().vMatLoc, false, view.transpose());
 		gl.uniformMatrix3fv(this.program.get().nMatLoc, false, normalmatrix.get());
 		
