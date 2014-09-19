@@ -1,0 +1,29 @@
+
+attribute vec3 Vertice;
+attribute vec3 Normale;
+
+uniform vec3 posLum;
+uniform vec3 posEye;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+uniform mat3 normalmatrix;
+
+varying vec3 fragVertice;
+varying vec3 fragNormale;
+varying vec3 fragPosLum;
+varying vec3 fragPosEye;
+
+void main()
+{
+  fragVertice = (model * vec4(Vertice, 1.0)).xyz;
+  fragNormale = normalmatrix * normalize(Normale);
+  fragPosLum = (vec4(posLum, 1.0)).xyz;
+  fragPosEye = (vec4(posEye, 1.0)).xyz;
+
+  // ORDRE IMPORTANT PVM
+  gl_Position = projection * view * model * vec4(Vertice, 1.0);
+}
+
+
